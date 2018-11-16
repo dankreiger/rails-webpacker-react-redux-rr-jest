@@ -4,7 +4,8 @@
   "scripts": {
     "sort": "sort-package-json",
     "start": "./bin/webpack-dev-server",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "test-ci": "jest"
   },
   "husky": {
     "hooks": {
