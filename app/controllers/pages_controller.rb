@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   end
 
   def contact
-    byebug
+    # byebug
+    
   end
 end

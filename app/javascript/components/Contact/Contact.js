@@ -1,15 +1,28 @@
 import React from 'react';
+import axios from 'axios';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { ContactContainer } from './Container.styles';
 
+const csrfToken = document.querySelector('[name="csrf-token"]').content;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+
 const Contact = () => {
+  const handleSubmit = e => {
+    e.preventDefault();
+    const email = e.target.elements[0].value;
+    const message = e.target.elements[1].value;
+
+    axios.post('/users/new', `message=${message}`).then(data => {
+      debugger;
+    });
+  };
   return (
     <ContactContainer>
       <Row>
         <Col>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Row form>
-              <Col md={6}>
+              <Col md={12}>
                 <FormGroup>
                   <Label for="exampleEmail">Email</Label>
                   <Input
@@ -20,14 +33,14 @@ const Contact = () => {
                   />
                 </FormGroup>
               </Col>
-              <Col md={6}>
+              <Col md={12}>
                 <FormGroup>
-                  <Label for="examplePassword">Password</Label>
+                  <Label for="examplePassword">Message</Label>
                   <Input
-                    type="password"
-                    name="password"
-                    id="examplePassword"
-                    placeholder="password placeholder"
+                    type="textarea"
+                    name="message"
+                    id="message"
+                    placeholder="Enter message"
                   />
                 </FormGroup>
               </Col>
@@ -76,7 +89,7 @@ const Contact = () => {
                 Check me out
               </Label>
             </FormGroup>
-            <Button>Sign in</Button>
+            <Button type="submit">Sign in</Button>
           </Form>
         </Col>
       </Row>
